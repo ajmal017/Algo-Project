@@ -20,19 +20,17 @@ import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.HistoricalQuote;
 import yahoofinance.histquotes.Interval;
 
-public class YahooDailyStockDownloader {
+public class YahooDailyStockDownloader implements StockDownloader {
 
-	public static void main(String[] args){
-		try {
-			//downloader(args[0]);
-			downloader("SEHK");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	private String strExchange;
+
+	public YahooDailyStockDownloader(String strExchange) {
+		super();
+		this.strExchange = strExchange;
 	}
 
-	private static void downloader(String strExchange) throws IOException{
+	@Override
+	public void download() throws IOException {
 		File logFile = new File(strExchange + ".log");
 		// if file doesn't exists, then create it
 		if (!logFile.exists()) {
@@ -44,8 +42,8 @@ public class YahooDailyStockDownloader {
 		bw.write("Started at " + dateFormat.format(Calendar.getInstance().getTime()) + "\n");
 		Scanner s = new Scanner(new File(strExchange + ".csv"));
 		ArrayList<String> list = new ArrayList<String>();
-		while (s.hasNext()){
-		    list.add(s.next());
+		while (s.hasNext()) {
+			list.add(s.next());
 		}
 		s.close();
 		for (String symbol : list) {
@@ -54,11 +52,11 @@ public class YahooDailyStockDownloader {
 				yahooStock = YahooFinance.get(symbol, true);
 			} catch (Exception e) {
 				bw.write(symbol + " does not exist in Yahoo finance. " + e + "\n");
-	            System.out.println(symbol + " does not exist in Yahoo finance. " + e);
-	            continue;
+				System.out.println(symbol + " does not exist in Yahoo finance. " + e);
+				continue;
 			}
 			Calendar from = Calendar.getInstance();
-			Calendar to	  = Calendar.getInstance();
+			Calendar to = Calendar.getInstance();
 			from.add(Calendar.YEAR, -50);
 			boolean isException = false;
 			int intNoOfAttempt = 0;
@@ -67,24 +65,25 @@ public class YahooDailyStockDownloader {
 				try {
 					intNoOfAttempt++;
 					history = yahooStock.getHistory(from, to, Interval.DAILY);
-		        } catch (Exception e) {
-		        	isException = true;
-		    		bw.write(symbol + " data cannot be downloaded. " + e + "\n");
-		            System.out.println(symbol + " data cannot be downloaded. " + e);
-		        }
+				} catch (Exception e) {
+					isException = true;
+					bw.write(symbol + " data cannot be downloaded. " + e + "\n");
+					System.out.println(symbol + " data cannot be downloaded. " + e);
+				}
 			} while (isException && intNoOfAttempt < 3);
 			List<String> lines = new ArrayList<String>();
 			for (HistoricalQuote quote : history) {
-				lines.add(new SimpleDateFormat("yyyyMMdd").format(quote.getDate().getTime()) + "," +
-						quote.getOpen() + "," + quote.getClose() + "," + quote.getHigh() + "," + 
-						quote.getLow() + "," + quote.getAdjClose());
+				lines.add(new SimpleDateFormat("yyyyMMdd").format(quote.getDate().getTime()) + "," + quote.getOpen()
+						+ "," + quote.getClose() + "," + quote.getHigh() + "," + quote.getLow() + ","
+						+ quote.getAdjClose());
 			}
 			Path file = Paths.get("DailyPrice", strExchange + "_" + symbol.replace(".HK", "") + ".csv");
 			Files.write(file, lines, Charset.forName("UTF-8"));
-			//Files.write(file, lines, Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+			// Files.write(file, lines, Charset.forName("UTF-8"),
+			// StandardOpenOption.APPEND);
 		}
 		bw.write("Ended at " + dateFormat.format(Calendar.getInstance().getTime()) + "\n");
 		bw.close();
 	}
-	
+
 }
