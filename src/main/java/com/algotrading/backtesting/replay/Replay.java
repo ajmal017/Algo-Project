@@ -28,10 +28,13 @@ public class Replay {
 
 	public void simulate() {
 		Date currentDate = startDate;
-		while (!tradingDate.isLastDate() && tradingDate.currentDate().compareTo(endDate) < 0) {
-			currentDate = tradingDate.currentDate();
+		while (!tradingDate.isLastDate() && tradingDate.currentDate()
+				.compareTo(endDate) < 0) {
+			currentDate = tradingDate.currentDate(); // find tradingDate in
+														// currentDate
 			Portfolio portfolio = new Portfolio(currentDate);
-			for (Stock stock : availableStocks.get()) {
+			for (Stock stock : availableStocks.get()) { // bring yesterday
+														// portfolio to today
 				PortfolioComponent component = strategies.buySellAmount(stock, currentDate);
 				if (component.getQuantity() != 0) {
 					portfolio.add(component);

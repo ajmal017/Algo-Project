@@ -56,4 +56,12 @@ public class Stock {
 		return history;
 	}
 
+	public Map<Date, Double> getClosingPriceHistory() {
+		Map<Date, Double> map = new TreeMap<>();
+		for (Map.Entry<Date, StockHistory> entry : history.entrySet()) {
+			map.put(entry.getKey(), entry.getValue()
+					.getAdjClose());
+		}
+		return map;
+	}
 }
