@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 
+import com.algotrading.backtesting.common.AlgoTradingConstants;
 import com.algotrading.backtesting.indicatorcalculator.RSI;
 import com.algotrading.backtesting.portfolio.Portfolio;
 import com.algotrading.backtesting.stock.Stock;
@@ -19,7 +20,7 @@ public abstract class RsiSignal implements StockSignal {
 
 	protected int magnitude = 10;
 	protected int sma_magnitude = 10;
-	protected String expectedValueType = "number";
+	protected String expectedValueType = AlgoTradingConstants.NUMBER;
 	protected String expectedValue = "10";
 	protected double multiplier = 1;
 	protected double testValue;
@@ -68,7 +69,6 @@ public abstract class RsiSignal implements StockSignal {
 			try {
 				rsi = new RSI(closingHistory, date, magnitude, sma_magnitude);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
@@ -81,7 +81,6 @@ public abstract class RsiSignal implements StockSignal {
 			double value = rsi.getValue();
 			return determine(value);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -91,13 +90,13 @@ public abstract class RsiSignal implements StockSignal {
 
 	private void settestValue(Date date) throws ParseException {
 		switch (expectedValueType) {
-		case "number":
+		case AlgoTradingConstants.NUMBER:
 			testValue = Double.parseDouble(this.expectedValue);
-		case "variable":
+		case AlgoTradingConstants.VARIABLE:
 			switch (expectedValue) {
-			case "closing":
-				testValue = closingHistory.get(date); // should depend on
-														// expectedValue
+			case AlgoTradingConstants.CLOSING:
+				// should depend on expectedValue
+				testValue = closingHistory.get(date);
 			default:
 				throw new ParseException("Invalid ExpectedvalueType -- " + expectedValue + ": no field match", 0);
 			}

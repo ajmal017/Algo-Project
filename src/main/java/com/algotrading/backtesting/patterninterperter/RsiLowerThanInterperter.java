@@ -2,6 +2,7 @@ package com.algotrading.backtesting.patterninterperter;
 
 import java.text.ParseException;
 
+import com.algotrading.backtesting.common.AlgoTradingConstants;
 import com.algotrading.backtesting.pattern.RsiLowerThanSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 
@@ -9,9 +10,9 @@ public class RsiLowerThanInterperter implements Node {
 	private static String name = "RsiLower";
 	private int magnitude = 10;
 	private int sma_magnitude = 10;
-	private String expectedValueType="number";
+	private String expectedValueType = AlgoTradingConstants.NUMBER;
 	private String expectedValue;
-	private double multiplier=1;
+	private double multiplier = 1;
 
 	@Override
 	public void parse(Context context) throws ParseException {
@@ -41,7 +42,7 @@ public class RsiLowerThanInterperter implements Node {
 					expectedValueType = value;
 				} else if ("expectedValue".equals(key)) {
 					expectedValue = value;
-//					expectedValue = Double.parseDouble(value);
+					// expectedValue = Double.parseDouble(value);
 				} else if ("multiplier".equals(key)) {
 					multiplier = Double.parseDouble(value);
 				} else {
@@ -52,11 +53,10 @@ public class RsiLowerThanInterperter implements Node {
 	}
 
 	@Override
-	public StockSignal execute(){
+	public StockSignal execute() {
 		try {
 			return new RsiLowerThanSignal(magnitude, sma_magnitude, expectedValueType, expectedValue, multiplier);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

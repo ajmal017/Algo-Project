@@ -2,15 +2,16 @@ package com.algotrading.backtesting.patterninterperter;
 
 import java.text.ParseException;
 
+import com.algotrading.backtesting.common.AlgoTradingConstants;
 import com.algotrading.backtesting.pattern.SmaHigherThanSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 
 public class SmaHigherThanInterperter implements Node {
 	private static String name = "SmaLarger";
 	private int magnitude;
-	private String expectedValueType="number";
+	private String expectedValueType = AlgoTradingConstants.NUMBER;
 	private String expectedValue;
-	private double multiplier=1;
+	private double multiplier = 1;
 
 	@Override
 	public void parse(Context context) throws ParseException {
@@ -41,7 +42,7 @@ public class SmaHigherThanInterperter implements Node {
 				} else if ("multiplier".equals(key)) {
 					multiplier = Double.parseDouble(value);
 				} else {
-					throw new ParseException(name + " no field match", 0);				
+					throw new ParseException(name + " no field match", 0);
 				}
 			}
 		}
@@ -52,10 +53,9 @@ public class SmaHigherThanInterperter implements Node {
 		try {
 			return new SmaHigherThanSignal(magnitude, expectedValueType, expectedValue, multiplier);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
 }
