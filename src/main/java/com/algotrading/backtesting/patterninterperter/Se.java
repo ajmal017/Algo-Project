@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.algotrading.backtesting.common.AlgoTradingConstants;
 import com.algotrading.backtesting.pattern.SeSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 
@@ -17,8 +18,8 @@ public class Se implements Node {
 			if (context.currentToken() == null) {
 				throw new ParseException(name, 0);
 			} else if (context.currentToken()
-					.equals("SE[")) {
-				context.skipToken("SE[");
+					.equals(AlgoTradingConstants.SE)) {
+				context.skipToken(AlgoTradingConstants.SE);
 			} else if (context.currentToken()
 					.equals("]")) {
 				context.skipToken("]");

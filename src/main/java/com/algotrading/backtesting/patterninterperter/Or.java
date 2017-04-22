@@ -2,6 +2,7 @@ package com.algotrading.backtesting.patterninterperter;
 
 import java.text.ParseException;
 
+import com.algotrading.backtesting.common.AlgoTradingConstants;
 import com.algotrading.backtesting.pattern.OrSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 
@@ -15,16 +16,18 @@ public class Or implements Node {
 	public void parse(Context context) throws ParseException {
 		name = context.currentToken();
 		context.skipToken(name);
-		if (!(name.equals("OR("))) {
+		if (!(name.equals(AlgoTradingConstants.OR))) {
 			throw new ParseException(name, 0);
 		}
 		while (true) {
 			if (context.currentToken() == null) {
 				throw new ParseException(name, 0);
-			} else if (context.currentToken().equals(")")) {
+			} else if (context.currentToken()
+					.equals(")")) {
 				context.skipToken(")");
 				break;
-			} else if (context.currentToken().equals(",")) {
+			} else if (context.currentToken()
+					.equals(",")) {
 				context.skipToken(",");
 				parsedLeft = true;
 			} else {

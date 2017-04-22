@@ -6,4 +6,11 @@ public interface AlgoTradingConstants {
 	String CLOSING = "closing";
 
 	String SRC_FILEPATH = "src/main/resources/";
+
+	String AND = "AND(";
+	String OR = "OR(";
+	String NOT = "NOT(";
+	String SE = "SE[";
+	String RSI_LOWER = "RSILower[";
+	String SMA_HIGHER = "SMAHigher[";
 }

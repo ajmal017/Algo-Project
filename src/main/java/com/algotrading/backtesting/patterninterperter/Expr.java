@@ -2,6 +2,7 @@ package com.algotrading.backtesting.patterninterperter;
 
 import java.text.ParseException;
 
+import com.algotrading.backtesting.common.AlgoTradingConstants;
 import com.algotrading.backtesting.pattern.StockSignal;
 
 public class Expr implements Node {
@@ -10,27 +11,27 @@ public class Expr implements Node {
 	@Override
 	public void parse(Context context) throws ParseException {
 		if (context.currentToken()
-				.equals("AND(")) {
+				.equals(AlgoTradingConstants.AND)) {
 			node = new And();
 			node.parse(context);
 		} else if (context.currentToken()
-				.equals("OR(")) {
+				.equals(AlgoTradingConstants.OR)) {
 			node = new Or();
 			node.parse(context);
 		} else if (context.currentToken()
-				.equals("NOT(")) {
+				.equals(AlgoTradingConstants.NOT)) {
 			node = new Not();
 			node.parse(context);
 		} else if (context.currentToken()
-				.equals("SE[")) {
+				.equals(AlgoTradingConstants.SE)) {
 			node = new Se();
 			node.parse(context);
 		} else if (context.currentToken()
-				.equals("SMAHigher[")) {
+				.equals(AlgoTradingConstants.SMA_HIGHER)) {
 			node = new SmaHigherThanInterperter();
 			node.parse(context);
 		} else if (context.currentToken()
-				.equals("RSILower[")) {
+				.equals(AlgoTradingConstants.RSI_LOWER)) {
 			node = new RsiLowerThanInterperter();
 			node.parse(context);
 		} else {

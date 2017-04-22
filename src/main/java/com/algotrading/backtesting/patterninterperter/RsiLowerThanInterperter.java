@@ -20,8 +20,8 @@ public class RsiLowerThanInterperter implements Node {
 			if (context.currentToken() == null) {
 				throw new ParseException(name, 0);
 			} else if (context.currentToken()
-					.equals("RSILower[")) {
-				context.skipToken("RSILower[");
+					.equals(AlgoTradingConstants.RSI_LOWER)) {
+				context.skipToken(AlgoTradingConstants.RSI_LOWER);
 			} else if (context.currentToken()
 					.equals("]")) {
 				context.skipToken("]");

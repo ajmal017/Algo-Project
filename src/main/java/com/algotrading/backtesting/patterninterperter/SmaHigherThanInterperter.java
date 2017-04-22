@@ -19,8 +19,8 @@ public class SmaHigherThanInterperter implements Node {
 			if (context.currentToken() == null) {
 				throw new ParseException(name, 0);
 			} else if (context.currentToken()
-					.equals("SMAHigher[")) {
-				context.skipToken("SMAHigher[");
+					.equals(AlgoTradingConstants.SMA_HIGHER)) {
+				context.skipToken(AlgoTradingConstants.SMA_HIGHER);
 			} else if (context.currentToken()
 					.equals("]")) {
 				context.skipToken("]");
