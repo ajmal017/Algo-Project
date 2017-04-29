@@ -1,11 +1,11 @@
-package com.algotrading.backtesting.patterninterperter;
+package com.algotrading.backtesting.patterninterpreter;
 
 import java.text.ParseException;
 
-import com.algotrading.backtesting.pattern.OrSignal;
+import com.algotrading.backtesting.pattern.AndSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 
-public class Or implements Node {
+public class And implements Node {
 	private Node left;
 	private Node right;
 	private String name;
@@ -15,7 +15,7 @@ public class Or implements Node {
 	public void parse(Context context) throws ParseException {
 		name = context.currentToken();
 		context.skipToken(name);
-		if (!(name.equals("OR("))) {
+		if (!(name.equals("AND("))) {
 			throw new ParseException(name, 0);
 		}
 		while (true) {
@@ -41,6 +41,6 @@ public class Or implements Node {
 
 	@Override
 	public StockSignal execute() {
-		return new OrSignal(left.execute(), right.execute());
+		return new AndSignal(left.execute(), right.execute());
 	}
 }

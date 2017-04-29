@@ -1,4 +1,4 @@
-package com.algotrading.backtesting.patterninterperter.test;
+package com.algotrading.backtesting.patterninterpreter.test;
 
 import java.text.ParseException;
 
@@ -6,14 +6,14 @@ import org.junit.Test;
 
 import com.algotrading.backtesting.pattern.SmaHigherThanSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
-import com.algotrading.backtesting.patterninterperter.Expr;
-import com.algotrading.backtesting.patterninterperter.Node;
-import com.algotrading.backtesting.patterninterperter.StringContext;
+import com.algotrading.backtesting.patterninterpreter.Expr;
+import com.algotrading.backtesting.patterninterpreter.Node;
+import com.algotrading.backtesting.patterninterpreter.StringContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class InterperterTest {
+public class InterpreterTest {
 
 	@Test
 	public void test001_SeInterperter() throws ParseException {

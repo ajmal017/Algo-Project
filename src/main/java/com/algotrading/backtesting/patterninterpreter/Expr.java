@@ -1,4 +1,4 @@
-package com.algotrading.backtesting.patterninterperter;
+package com.algotrading.backtesting.patterninterpreter;
 
 import java.text.ParseException;
 
@@ -27,11 +27,11 @@ public class Expr implements Node {
 			node.parse(context);
 		} else if (context.currentToken()
 				.equals("SMAHigher[")) {
-			node = new SmaHigherThanInterperter();
+			node = new SmaHigherThanInterpreter();
 			node.parse(context);
 		} else if (context.currentToken()
 				.equals("RSILower[")) {
-			node = new RsiLowerThanInterperter();
+			node = new RsiLowerThanInterpreter();
 			node.parse(context);
 		} else if (context.currentToken()
 				.equals("PosEqual[")) {

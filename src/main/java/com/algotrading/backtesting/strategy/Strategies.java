@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.algotrading.backtesting.pattern.StockSignal;
-import com.algotrading.backtesting.patterninterperter.Interperter;
+import com.algotrading.backtesting.patterninterpreter.Interpreter;
 import com.algotrading.backtesting.portfolio.Portfolio;
 import com.algotrading.backtesting.portfolio.PortfolioComponent;
 import com.algotrading.backtesting.stock.Stock;
@@ -47,7 +47,7 @@ public class Strategies {
 			String[] value = line.split("\t");
 			String signalStr = value[0];
 			String costStr = value[1];
-			StockSignal stockPattern = Interperter.toPattern(signalStr);
+			StockSignal stockPattern = Interpreter.toPattern(signalStr);
 			double cost = Double.parseDouble(costStr);
 			Strategy strategy = new Strategy(stockPattern, cost);
 			strategies.add(strategy);

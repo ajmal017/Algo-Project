@@ -1,4 +1,4 @@
-package com.algotrading.backtesting.patterninterperter;
+package com.algotrading.backtesting.patterninterpreter;
 
 import java.util.ArrayList;
 import java.util.List;

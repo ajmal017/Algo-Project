@@ -1,12 +1,12 @@
-package com.algotrading.backtesting.patterninterperter.test;
+package com.algotrading.backtesting.patterninterpreter.test;
 
 import java.text.ParseException;
 
 import org.junit.Test;
 
 import com.algotrading.backtesting.pattern.PositionEqualSignal;
-import com.algotrading.backtesting.patterninterperter.PositionEqualInterpreter;
-import com.algotrading.backtesting.patterninterperter.StringContext;
+import com.algotrading.backtesting.patterninterpreter.PositionEqualInterpreter;
+import com.algotrading.backtesting.patterninterpreter.StringContext;
 
 import static org.junit.Assert.assertEquals;
 

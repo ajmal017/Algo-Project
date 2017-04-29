@@ -1,11 +1,11 @@
-package com.algotrading.backtesting.patterninterperter;
+package com.algotrading.backtesting.patterninterpreter;
 
 import java.text.ParseException;
 
 import com.algotrading.backtesting.pattern.RsiLowerThanSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 
-public class RsiLowerThanInterperter implements Node {
+public class RsiLowerThanInterpreter implements Node {
 	private static String name = "RsiLower";
 	private int magnitude = 10;
 	private int sma_magnitude = 10;

@@ -1,11 +1,11 @@
-package com.algotrading.backtesting.patterninterperter;
+package com.algotrading.backtesting.patterninterpreter;
 
 import java.text.ParseException;
 
 import com.algotrading.backtesting.pattern.SmaHigherThanSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 
-public class SmaHigherThanInterperter implements Node {
+public class SmaHigherThanInterpreter implements Node {
 	private static String name = "SmaLarger";
 	private int magnitude;
 	private String expectedValueType="number";
