@@ -1,11 +1,11 @@
 package com.algotrading.backtesting.stock;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.algotrading.backtesting.portfolio.Portfolio;
+import com.algotrading.backtesting.util.Constants;
 
 public class PortfolioHistory {
 
@@ -32,7 +32,7 @@ public class PortfolioHistory {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<Date, Portfolio> entry : history.entrySet()) {
-			sb.append(new SimpleDateFormat("yyyy-MM-dd").format(entry.getKey()))
+			sb.append(Constants.DATE_FORMAT_YYYYMMDD.format(entry.getKey()))
 					.append(":")
 					.append(entry.getValue())
 					.append("\n");

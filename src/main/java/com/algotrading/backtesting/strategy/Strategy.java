@@ -26,13 +26,19 @@ public class Strategy {
 		double unitPrice = stock.getHistory()
 				.get(date)
 				.getClose();
-		return new PortfolioComponent(stock, (int) (buyCostIfMatch / unitPrice), unitPrice);
+		int buyVolumeBeforeLotSize = (int) (buyCostIfMatch / unitPrice);
+		int buyBolumeAfterLotSize = (buyVolumeBeforeLotSize / stock.getLotSize()) * stock.getLotSize();
+		return new PortfolioComponent(stock, buyBolumeAfterLotSize, unitPrice);
 	}
 
-	public PortfolioComponent sellAmount(Stock stock, Date date) {
+	public PortfolioComponent sellAmount(Stock stock, Date date, Portfolio portfolio) {
 		double unitPrice = stock.getHistory()
 				.get(date)
 				.getClose();
-		return new PortfolioComponent(stock, 0 - (int) (buyCostIfMatch / unitPrice), unitPrice);
+		int sellVolumeBeforeLotSize = (int) (buyCostIfMatch / unitPrice);
+		int sellVolumeAfterLotSize = (sellVolumeBeforeLotSize / stock.getLotSize()) * stock.getLotSize();
+		int sellVolumeAfterPossibleSoldAll = buyCostIfMatch == 0 ? portfolio.getPortfolioComponent(stock.getTicker())
+				.getQuantity() : sellVolumeAfterLotSize;
+		return new PortfolioComponent(stock, 0 - sellVolumeAfterPossibleSoldAll, unitPrice);
 	}
 }

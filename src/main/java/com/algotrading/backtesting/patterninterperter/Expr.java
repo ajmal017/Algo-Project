@@ -26,6 +26,10 @@ public class Expr implements Node {
 			node = new Se();
 			node.parse(context);
 		} else if (context.currentToken()
+				.equals("NoBorrowMoney[")) {
+			node = new NoBorrowMoneyInterperter();
+			node.parse(context);
+		} else if (context.currentToken()
 				.equals("SMAHigher[")) {
 			node = new SmaHigherThanInterperter();
 			node.parse(context);

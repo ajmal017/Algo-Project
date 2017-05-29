@@ -4,6 +4,8 @@ import java.text.ParseException;
 
 import org.junit.Test;
 
+import com.algotrading.backtesting.pattern.AndSignal;
+import com.algotrading.backtesting.pattern.NoBorrowMoneySignal;
 import com.algotrading.backtesting.pattern.SmaHigherThanSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 import com.algotrading.backtesting.patterninterperter.Expr;
@@ -64,6 +66,22 @@ public class InterperterTest {
 		assertEquals(10, smaHigherThanSignal.getMagnitude());
 		// assertEquals(30, smaHigherThanSignal.getExpectedValue(), 0.01); //
 		// TODO to fix
+	}
+
+	@Test
+	public void test007_NoBorrowMoneyInterperter() throws ParseException {
+		String expected = "NoBorrowMoney[ ]";
+		StockSignal pattern = interpertToPattern(expected);
+		assertTrue(pattern instanceof NoBorrowMoneySignal);
+	}
+
+	@Test
+	public void test008_ComplexInterperter() throws ParseException {
+		String input = "AND( NoBorrowMoney[ ] , SMAHigher[ magnitude=10 expectedValue=30 ] )";
+		String expected = "AND( NoBorrowMoney[ ] , SMAHigher[ magnitude=10 expectedValue=30 ] )";
+		StockSignal pattern = interpertToPattern(input);
+		assertTrue(pattern instanceof AndSignal);
+		assertEquals(expected, pattern.toString());
 	}
 
 	private StockSignal interpertToPattern(String input) throws ParseException {

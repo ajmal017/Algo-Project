@@ -1,14 +1,12 @@
 package com.algotrading.backtesting.replay.test;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
 
-import com.algotrading.backtesting.pattern.MustFalseSignal;
 import com.algotrading.backtesting.pattern.MustTrueSignal;
 import com.algotrading.backtesting.pattern.StockSignal;
 import com.algotrading.backtesting.replay.AvailableStocks;
@@ -19,6 +17,7 @@ import com.algotrading.backtesting.stock.Stock;
 import com.algotrading.backtesting.stock.StockHistory;
 import com.algotrading.backtesting.strategy.Strategies;
 import com.algotrading.backtesting.strategy.Strategy;
+import com.algotrading.backtesting.util.Constants;
 
 public class ReplayTest {
 
@@ -26,7 +25,6 @@ public class ReplayTest {
 	private Date endDate;
 	private Date middleDate;
 	private StockSignal mustTrueSignal;
-	private StockSignal mustFalseSignal;
 	private Strategy buyStrategy;
 	private Strategy sellStrategy;
 	private Strategies strategies;
@@ -44,12 +42,11 @@ public class ReplayTest {
 	private Stock stock0281;
 
 	public ReplayTest() throws ParseException {
-		startDate = new SimpleDateFormat("yyyy-MM-dd").parse("2016-04-01");
-		endDate = new SimpleDateFormat("yyyy-MM-dd").parse("2016-04-11");
-		middleDate = new SimpleDateFormat("yyyy-MM-dd").parse("2016-04-06");
+		startDate = Constants.DATE_FORMAT_YYYYMMDD.parse("20160401");
+		endDate = Constants.DATE_FORMAT_YYYYMMDD.parse("20160411");
+		middleDate = Constants.DATE_FORMAT_YYYYMMDD.parse("20160406");
 
 		mustTrueSignal = new MustTrueSignal();
-		mustFalseSignal = new MustFalseSignal();
 
 		buyStrategy = new Strategy(mustTrueSignal, 100);
 		sellStrategy = new Strategy(mustTrueSignal, 100);
@@ -89,7 +86,7 @@ public class ReplayTest {
 	@Test
 	public void test1_test() throws ParseException {
 		PortfolioHistory history = new PortfolioHistory();
-		Replay replay = new Replay(startDate, endDate, history, strategies, availableStocks, tradingDate);
+		Replay replay = new Replay(startDate, endDate, history, strategies, availableStocks, tradingDate, 30000);
 
 		replay.simulate();
 		PortfolioHistory portfolioHistory = replay.getPortfolioHistory();

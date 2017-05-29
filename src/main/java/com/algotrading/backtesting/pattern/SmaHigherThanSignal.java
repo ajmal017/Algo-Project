@@ -18,4 +18,9 @@ public class SmaHigherThanSignal extends SmaSignal {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "SMAHigher[ magnitude=" + magnitude + " expectedValue=" + expectedValue + " ]";
+	}
+
 }

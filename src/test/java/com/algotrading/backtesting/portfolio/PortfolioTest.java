@@ -37,7 +37,7 @@ public class PortfolioTest {
 	@Test
 	public void test1_addPortfolio() {
 
-		Portfolio portfolio = new Portfolio(date);
+		Portfolio portfolio = new Portfolio(date, 10000);
 
 		PortfolioComponent pc1382_1 = new PortfolioComponent(stock1382, 1000, 10);
 		PortfolioComponent pc1382_2 = new PortfolioComponent(stock1382, 1000, 20);
@@ -54,7 +54,7 @@ public class PortfolioTest {
 	@Test
 	public void test2_addPortfolio() {
 
-		Portfolio portfolio = new Portfolio(date);
+		Portfolio portfolio = new Portfolio(date, 10000);
 
 		PortfolioComponent pc1382_1 = new PortfolioComponent(stock1382, 1000, 10);
 		PortfolioComponent pc1382_2 = new PortfolioComponent(stock1382, 1000, 20);

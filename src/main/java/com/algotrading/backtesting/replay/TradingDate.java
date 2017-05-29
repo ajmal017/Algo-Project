@@ -6,15 +6,14 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TradingDate {
+import com.algotrading.backtesting.util.Constants;
 
-	private static String DATE_PATTERN = "yyyy-MM-dd";
+public class TradingDate {
 
 	private String file;
 	private List<Date> tradingDates;
@@ -36,7 +35,7 @@ public class TradingDate {
 	}
 
 	public void setCurrentDate(Date date) {
-		String dateStr = new SimpleDateFormat(DATE_PATTERN).format(date);
+		String dateStr = Constants.DATE_FORMAT_YYYYMMDD.format(date);
 		for (int i = 0; i < tradingDates.size(); i++) {
 			if (date.compareTo(tradingDates.get(i)) == 0) {
 				currentTradingDateIndex = i;
@@ -69,7 +68,7 @@ public class TradingDate {
 
 	private Date parseDate(String dateStr) {
 		try {
-			return new SimpleDateFormat(DATE_PATTERN).parse(dateStr);
+			return Constants.DATE_FORMAT_YYYYMMDD.parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

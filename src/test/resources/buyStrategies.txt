@@ -1,1 +1,1 @@
-SMAHigher[ magnitude=10 expectedValue=30 ]	2000
+AND( NoBorrowMoneyInterperter[ ] , SMAHigher[ magnitude=10 expectedValue=30 ] )	2000

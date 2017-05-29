@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.algotrading.backtesting.pattern.StockSignal;
 import com.algotrading.backtesting.patterninterperter.Interperter;
+import com.algotrading.backtesting.portfolio.BuySellAmount;
 import com.algotrading.backtesting.portfolio.Portfolio;
 import com.algotrading.backtesting.portfolio.PortfolioComponent;
 import com.algotrading.backtesting.stock.Stock;
@@ -55,23 +56,29 @@ public class Strategies {
 		return strategies;
 	}
 
-	public PortfolioComponent buySellAmount(Stock stock, Date date, Portfolio portfolio) throws ParseException {
+	public BuySellAmount buySellAmount(Stock stock, Date date, Portfolio portfolio) throws ParseException {
 		for (Strategy strategy : buySignal) {
 			if (strategy.shouldPutOrder(stock, date, portfolio) && !portfolio.containsStock(stock)) {
 				PortfolioComponent buyAmount = strategy.buyAmount(stock, date);
-				return buyAmount;
-				// component.add(buyAmount);
-				// break;
+
+				// sellAmount.getQuantity() should be positive as portfolio
+				// increase stock
+				// so need to negative it to state decrease cash
+				double tradedCash = -buyAmount.getUnitPrice() * buyAmount.getQuantity();
+				return new BuySellAmount(buyAmount, tradedCash);
 			}
 		}
 		for (Strategy strategy : sellSignal) {
 			if (strategy.shouldPutOrder(stock, date, portfolio) && portfolio.containsStock(stock)) {
-				PortfolioComponent sellAmount = strategy.sellAmount(stock, date);
-				return sellAmount;
-				// component.add(sellAmount);
-				// break;
+				PortfolioComponent sellAmount = strategy.sellAmount(stock, date, portfolio);
+
+				// sellAmount.getQuantity() should be negative as portfolio
+				// decrease stock
+				// so need to negative it to state increase cash
+				double tradedCash = -sellAmount.getUnitPrice() * sellAmount.getQuantity();
+				return new BuySellAmount(sellAmount, tradedCash);
 			}
 		}
-		return new PortfolioComponent(stock, 0, 0);
+		return new BuySellAmount(new PortfolioComponent(stock, 0, 0), 0);
 	}
 }
