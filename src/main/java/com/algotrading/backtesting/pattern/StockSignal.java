@@ -8,5 +8,5 @@ import com.algotrading.backtesting.stock.Stock;
 
 public interface StockSignal {
 
-	public boolean signal(Stock stock, Date date, Portfolio portfolio) throws ParseException;
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) throws ParseException;
 }

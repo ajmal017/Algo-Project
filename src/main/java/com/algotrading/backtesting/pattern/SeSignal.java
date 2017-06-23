@@ -14,7 +14,7 @@ public class SeSignal implements StockSignal {
 	}
 
 	@Override
-	public boolean signal(Stock stock, Date date, Portfolio portfolio) {
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) {
 		return false;
 	}
 

@@ -15,8 +15,8 @@ public class NotSignal implements StockSignal {
 	}
 
 	@Override
-	public boolean signal(Stock stock, Date date, Portfolio portfolio) throws ParseException {
-		return !pattern.signal(stock, date, portfolio);
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) throws ParseException {
+		return !pattern.signal(stock, date, portfolio, buyCostIfMatch);
 	}
 
 	@Override

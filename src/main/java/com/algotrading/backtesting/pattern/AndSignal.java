@@ -17,8 +17,8 @@ public class AndSignal implements StockSignal {
 	}
 
 	@Override
-	public boolean signal(Stock stock, Date date, Portfolio portfolio) throws ParseException {
-		return left.signal(stock, date, portfolio) && right.signal(stock, date, portfolio);
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) throws ParseException {
+		return left.signal(stock, date, portfolio, buyCostIfMatch) && right.signal(stock, date, portfolio, buyCostIfMatch);
 	}
 
 	@Override

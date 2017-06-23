@@ -57,7 +57,7 @@ public abstract class RsiSignal implements StockSignal {
 	}
 
 	@Override
-	public boolean signal(Stock stock, Date date, Portfolio portfolio) throws ParseException {
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) throws ParseException {
 		if (closingHistory == null) {
 			Map<Date, StockHistory> history = stock.getHistory();
 			// Map<Date, Double> closingHistory = new TreeMap<>();

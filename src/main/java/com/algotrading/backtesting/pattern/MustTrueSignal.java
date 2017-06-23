@@ -9,7 +9,7 @@ import com.algotrading.backtesting.stock.Stock;
 public class MustTrueSignal implements StockSignal {
 
 	@Override
-	public boolean signal(Stock stock, Date date, Portfolio portfolio) throws ParseException {
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) throws ParseException {
 		return true;
 	}
 
