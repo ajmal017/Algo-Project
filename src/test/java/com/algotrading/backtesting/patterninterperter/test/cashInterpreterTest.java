@@ -4,7 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -87,10 +90,14 @@ public class cashInterpreterTest {
 		interpreter.parse(stringContext);
 		assertEquals(false, interpreter.execute().signal(stock0281, date, portfolio, 30000));
 	}
-/*
+
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
+	
 	@Test
 	public void test007_isSufficientCashErrorIfParam() throws ParseException {
-		System.out.println("Test 5");
+		expectedEx.expect(ParseException.class);
+		expectedEx.expectMessage("Signal 'isSufficientCash' : 'expectedValueType' no field match");
 		date = new SimpleDateFormat("yyyyMMdd").parse("20170318");
 		portfolio = new Portfolio(date, 25000);
 		stock0281 = new Stock("0281");
@@ -99,5 +106,15 @@ public class cashInterpreterTest {
 		interpreter.parse(stringContext);
 	}
 
-*/
+	@Test
+	public void test008_cashMoreThanErrorInvalidParam() throws ParseException {
+		expectedEx.expect(ParseException.class);
+		expectedEx.expectMessage("Signal 'cashMoreThan' : 'expectedValues' no field match");
+		date = new SimpleDateFormat("yyyyMMdd").parse("20170318");
+		portfolio = new Portfolio(date, 25000);
+		stock0281 = new Stock("0281");
+		interpreter = new cashInterpreter();
+		stringContext = new StringContext("cashMoreThan[ expectedValues=10000 ]");
+		interpreter.parse(stringContext);
+	}
 }
