@@ -39,4 +39,9 @@ public class PortfolioHistory {
 		}
 		return sb.toString();
 	}
+	
+	public Portfolio get(Date date){
+		return history.get(date);
+	}
+
 }

@@ -1,0 +1,1 @@
+AND( AND( AND( AND( RsiLessThan[ magnitude=10 sma_magnitude=10 expectedValueType=number expectedValue=20 ] , SmaHigherThan[ magnitude=10 expectedValueType=variable expectedValue=closing ] ) , VolumeHigherThan[ expectedValueType=variable expectedValue=volume expectedLag=1 multiplier=1.5 ] ) , PositionEqual[ expectedValueType=number expectedValue=0 ] ) , isSufficientCash[ ] ) 10000
