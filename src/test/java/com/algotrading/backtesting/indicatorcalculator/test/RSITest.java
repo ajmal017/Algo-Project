@@ -21,11 +21,10 @@ public class RSITest {
 		int map_length = 20;
 		Date recent = loopdate.getTime();
 		double expected_value = 0; // expected value of recent date
-		int magnitude = 12;
-		int sma_magnitude = 1;
+		int magnitude = 5;
+		int sma_magnitude = 5;
 
-		Double[] series = new Double[] { 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 11.0, 10.0, 9.0, 8.0, 7.0,
-				6.0, 5.0, 4.0, 3.0, 2.0 }; // the series
+		Double[] series = new Double[] { 97.35, 95.8, 96.4, 95.95, 95.0, 95.5, 96.9, 96.2, 95.9, 95.8, 97.95, 96.1, 96.7, 95.0, 94.0, 92.55, 93.6, 92.55, 93.0, 92.6}; // the series
 
 		Map<Date, Double> datedprice = new TreeMap<Date, Double>();
 		for (int i = 0; i < map_length; i++) {
@@ -33,7 +32,6 @@ public class RSITest {
 			loopdate.add(Calendar.DATE, -1);
 		}
 		RSI rsi = new RSI(datedprice, recent, magnitude, sma_magnitude);
-		// rsi.setAlpha(1/3);
 		// Test case setting ends
 
 		// print the resulting line from rsi
