@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import com.algotrading.backtesting.portfolio.Portfolio;
 import com.algotrading.backtesting.stock.Stock;
 import com.algotrading.backtesting.stock.StockHistory;
 
@@ -41,7 +42,7 @@ public abstract class VolumeSignal implements StockSignal {
 	}
 
 	@Override
-	public boolean signal(Stock stock, Date date) {
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) {
 		Map<Date, StockHistory> history = stock.getHistory();
 		if (expectedValueType.equals("variable")) {
 			if (expectedValue.equals("volume")) {

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.algotrading.backtesting.stock.Stock;
+import com.algotrading.backtesting.portfolio.Portfolio;
 import com.algotrading.backtesting.stock.StockHistory;
 
 public abstract class ClosingSignal implements StockSignal {
@@ -40,7 +41,7 @@ public abstract class ClosingSignal implements StockSignal {
 	}
 
 	@Override
-	public boolean signal(Stock stock, Date date) {
+	public boolean signal(Stock stock, Date date, Portfolio portfolio, double buyCostIfMatch) {
 		Map<Date, StockHistory> history = stock.getHistory();
 		calExpectedValue = Double.valueOf(expectedValue) * multiplier;
 		try {
