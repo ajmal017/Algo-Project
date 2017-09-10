@@ -16,7 +16,7 @@ public class AvailableStocksTest {
 	public void testRead() throws IOException, ParseException {
 		String inputFile = Constants.SRC_TEST_RESOURCE_FILEPATH + "availableStocks.txt";
 		AvailableStocks availableStocks = new AvailableStocks(inputFile);
-		assertEquals(3, availableStocks.get()
+		assertEquals(8, availableStocks.get()
 				.size());
 	}
 

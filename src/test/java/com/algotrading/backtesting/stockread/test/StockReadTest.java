@@ -5,9 +5,11 @@ import java.text.ParseException;
 import org.junit.Test;
 
 import com.algotrading.backtesting.stock.Stock;
+// import com.algotrading.backtesting.stock.StockHistory;
 import com.algotrading.backtesting.util.Constants;
 
 import static org.junit.Assert.assertEquals;
+// import static org.junit.Assert.assertNull;
 
 public class StockReadTest {
 	@Test
@@ -66,7 +68,9 @@ public class StockReadTest {
 
 	private double getStockHistory(String ticker, String strDate, String strInformation) throws ParseException {
 		Stock SEHK_0001_HK = new Stock(ticker);
-		SEHK_0001_HK.read(Constants.SRC_TEST_RESOURCE_FILEPATH);
+		SEHK_0001_HK.read(Constants.SRC_TEST_RESOURCE_FILEPATH, false);
+		// StockHistory test_sh = SEHK_0001_HK.getHistory().get(Constants.DATE_FORMAT_YYYYMMDD.parse(strDate));
+		// assertNull(test_sh);
 		if (strInformation.equals("open")) {
 			return SEHK_0001_HK.getHistory()
 					.get(Constants.DATE_FORMAT_YYYYMMDD.parse(strDate))

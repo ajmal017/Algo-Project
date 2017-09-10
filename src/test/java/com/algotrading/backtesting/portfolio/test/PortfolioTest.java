@@ -47,7 +47,7 @@ public class PortfolioTest {
 		portfolio.add(pc1382_1);
 		portfolio.add(pc1382_2);
 
-		assertEquals(10000, portfolio.marketValue(), 0.01);
+		assertEquals(20000, portfolio.marketValue(), 0.01);
 		assertEquals(30000, portfolio.cost(), 0.01);
 
 		assertTrue(portfolio.containsStock(stock1382));
@@ -69,7 +69,7 @@ public class PortfolioTest {
 		portfolio.add(pc0281_1);
 		portfolio.add(pc0281_2);
 
-		assertEquals(20000, portfolio.marketValue(), 0.01);
+		assertEquals(30000, portfolio.marketValue(), 0.01);
 		assertEquals(37500, portfolio.cost(), 0.01);
 
 		assertTrue(portfolio.containsStock(stock1382));
