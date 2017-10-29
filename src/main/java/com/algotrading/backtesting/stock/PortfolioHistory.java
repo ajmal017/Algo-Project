@@ -22,6 +22,10 @@ public class PortfolioHistory {
 		this.initialCash = initialCash;
 	}
 
+	public void setInitialCash(double initialCash) {
+		this.initialCash = initialCash;
+	}
+
 	public void put(Date date, Portfolio portfolio) {
 		history.put(date, portfolio);
 	}
@@ -49,8 +53,8 @@ public class PortfolioHistory {
 		}
 		return sb.toString();
 	}
-	
-	public Portfolio get(Date date){
+
+	public Portfolio get(Date date) {
 		return history.get(date);
 	}
 
