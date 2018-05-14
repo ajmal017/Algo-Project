@@ -27,6 +27,29 @@ import com.ib.client.TickAttr;
 
 public abstract class BaseEWrapper implements EWrapper {
 
+	/**
+	 * returns the option chain for an underlying on an exchange specified in
+	 * reqSecDefOptParams There will be multiple callbacks to
+	 * securityDefinitionOptionParameter if multiple exchanges are specified in
+	 * reqSecDefOptParams
+	 * 
+	 * @param reqId
+	 *            - ID of the request initiating the callback
+	 * @param underlyingConId
+	 *            - The conID of the underlying security
+	 * @param tradingClass
+	 *            - the option trading class
+	 * @param multiplier
+	 *            - the option multiplier
+	 * @param expirations
+	 *            - a list of the expiries for the options of this underlying on
+	 *            this exchange
+	 * @param strikes
+	 *            - a list of the possible strikes for options of this
+	 *            underlying on this exchange
+	 * @see EClient::reqSecDefOptParams
+	 */
+
 	@Override
 	public void securityDefinitionOptionalParameter(int reqId, String exchange, int underlyingConId,
 			String tradingClass, String multiplier, Set expirations, Set strikes) {
