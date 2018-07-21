@@ -24,7 +24,7 @@ public class MainTest {
 
 	protected static String RESOURCE_PATH_NAME = Constants.SRC_TEST_RESOURCE_FILEPATH
 			+ MainTest.class.getPackage().getName().replace('.', '/') + "/";
-
+/*
 	@Test
 	public void test001_buyConditionsMet() throws ParseException, IOException {
 		Date startDate = Constants.DATE_FORMAT_YYYYMMDD.parse("2016-09-28");
@@ -277,7 +277,7 @@ public class MainTest {
 		System.out.println("Total Traded Volume: " + replay.getTotalTradedVolume());
 		System.out.println("Total Transaction Cost: " + replay.getTotalTrasactionCost());
 	}
-
+*/
 	@Test
 	public void test010_stockEnabledBuyConditionsMet() throws ParseException, IOException {
 		LotSize lotSize = new LotSize(RESOURCE_PATH_NAME + "lotSize.csv");
@@ -307,6 +307,7 @@ public class MainTest {
 		// exit strategy triggered on 20161014
 		assertEquals(false, portfolio20161014.containsStock(stockTC0010));
 		assertEquals(false, portfolio20161019.containsStock(stockTC0010));
+
 		// stock enabled again but no action yet on 20161020
 		assertEquals(false, portfolio20161020.containsStock(stockTC0010));
 		assertTrue(portfolio20161021.containsStock(stockTC0010)); // Buy stock

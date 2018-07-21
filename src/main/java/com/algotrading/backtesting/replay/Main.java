@@ -17,7 +17,7 @@ public class Main {
 		Date endDate = Constants.DATE_FORMAT_YYYYMMDD.parse("2009-12-27");
 		// Date endDate = Constants.DATE_FORMAT_YYYYMMDD.parse("2000-01-10");
 		int initialCash = 300000;
-		PortfolioHistory history = new PortfolioHistory(initialCash);
+		PortfolioHistory history = new PortfolioHistory();
 		Strategies strategies = new Strategies(Constants.SRC_MAIN_RESOURCE_FILEPATH + "buyStrategies1.txt",
 				Constants.SRC_MAIN_RESOURCE_FILEPATH + "sellStrategies1.txt",
 				Constants.SRC_MAIN_RESOURCE_FILEPATH + "exitStrategies.txt",

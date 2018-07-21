@@ -9,6 +9,7 @@ import com.algotrading.backtesting.portfolio.PortfolioComponent;
 import com.algotrading.backtesting.stock.PortfolioHistory;
 import com.algotrading.backtesting.stock.Stock;
 import com.algotrading.backtesting.strategy.Strategies;
+import com.algotrading.backtesting.util.Print;
 
 public class Replay {
 	private Date startDate;
@@ -22,6 +23,8 @@ public class Replay {
 	private Portfolio portfolio;
 	private double totalTradedVolume = 0;
 	private double totalTrasactionCost = 0;
+	private Boolean doPrint = false;
+	private Print print;
 
 	public double getTotalTradedVolume() {
 		return totalTradedVolume;
@@ -31,7 +34,7 @@ public class Replay {
 		return totalTrasactionCost;
 	}
 
-	public Replay(Date startDate, Date endDate, PortfolioHistory portfolioHistory, Strategies strategies,
+	private void setData(Date startDate, Date endDate, PortfolioHistory portfolioHistory, Strategies strategies,
 			AvailableStocks availableStocks, TradingDate tradingDate, double initialCash) {
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -48,7 +51,21 @@ public class Replay {
 		} else {
 			this.portfolio = new Portfolio(startDate, initialCash);
 		}
+		this.portfolioHistory.setInitValue(portfolio.marketValue());
 		// this.initialPortfolio = portfolio.clone();
+	}
+
+	public Replay(Date startDate, Date endDate, PortfolioHistory portfolioHistory, Strategies strategies,
+			AvailableStocks availableStocks, TradingDate tradingDate, double initialCash, String printMethod)
+			throws ParseException {
+		setData(startDate, endDate, portfolioHistory, strategies, availableStocks, tradingDate, initialCash);
+		print = new Print(printMethod, startDate, endDate, portfolioHistory);
+		doPrint = true;
+	}
+
+	public Replay(Date startDate, Date endDate, PortfolioHistory portfolioHistory, Strategies strategies,
+			AvailableStocks availableStocks, TradingDate tradingDate, double initialCash) {
+		setData(startDate, endDate, portfolioHistory, strategies, availableStocks, tradingDate, initialCash);
 	}
 
 	public void simulate() throws ParseException {
@@ -74,6 +91,9 @@ public class Replay {
 					portfolio.add(component);
 					portfolio.addCash(tradedCash);
 					portfolio.addTransaction(buySellAmount);
+					if (doPrint) {
+						print.record(buySellAmount);
+					}
 				}
 			}
 			portfolioHistory.put(currentDate, portfolio);

@@ -11,7 +11,7 @@ public class PortfolioHistory {
 
 	private Map<Date, Portfolio> history;
 
-	private double initialCash;
+	private double initValue; // the initial value of start date
 
 	public PortfolioHistory() {
 		this(0);
@@ -19,7 +19,7 @@ public class PortfolioHistory {
 
 	public PortfolioHistory(double initialCash) {
 		this.history = new TreeMap<>();
-		this.initialCash = initialCash;
+		this.initValue = initialCash;
 	}
 
 	public void put(Date date, Portfolio portfolio) {
@@ -28,46 +28,42 @@ public class PortfolioHistory {
 
 	public double portfolioReturn(Date endDate) {
 		// TODO: no exception handling yet...
-		return getNetProfit(endDate)/ initialCash;
-	}	
-	
+		return getNetProfit(endDate) / initValue;
+	}
+
 	public double portfolioReturn(Date startDate, Date endDate) {
 		// TODO: no exception handling yet...
-		double startDateMarketValue = history.get(startDate)
-				.marketValue();
-		double endDateMarketValue = history.get(endDate)
-				.marketValue();
+		double startDateMarketValue = history.get(startDate).marketValue();
+		double endDateMarketValue = history.get(endDate).marketValue();
 		return (endDateMarketValue - startDateMarketValue) / startDateMarketValue;
 	}
 
 	public double getNetProfit(Date endDate) {
 		// TODO: no exception handling yet...
-		return history.get(endDate).marketValue() - initialCash;
+		return history.get(endDate).marketValue() - initValue;
 	}
 
 	public double getNetProfit(Date startDate, Date endDate) {
 		// TODO: no exception handling yet...
-		return history.get(endDate).marketValue() - 
-					history.get(startDate).marketValue();
+		return history.get(endDate).marketValue() - history.get(startDate).marketValue();
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<Date, Portfolio> entry : history.entrySet()) {
-			sb.append(Constants.DATE_FORMAT_YYYYMMDD.format(entry.getKey()))
-					.append(":")
-					.append(entry.getValue())
-					.append(", profit: ")
-					.append(entry.getValue()
-							.marketValue() - initialCash)
-					.append("\n");
+			sb.append(Constants.DATE_FORMAT_YYYYMMDD.format(entry.getKey())).append(":").append(entry.getValue())
+					.append(", profit: ").append(entry.getValue().marketValue() - initValue).append("\n");
 		}
 		return sb.toString();
 	}
-	
-	public Portfolio get(Date date){
+
+	public Portfolio get(Date date) {
 		return history.get(date);
+	}
+
+	public void setInitValue(double value) {
+		initValue = value;
 	}
 
 }
