@@ -47,27 +47,6 @@ public class Requester {
 	}
 
 	/**
-	 * Requests the contract's market depth (order book). This request must be
-	 * direct-routed to an exchange and not smart-routed. The number of
-	 * simultaneous market depth requests allowed in an account is calculated
-	 * based on a formula that looks at an accounts equity, commissions, and
-	 * quote booster packs.
-	 * 
-	 * @param tickerId
-	 *            - the request's identifier
-	 * @param contract
-	 *            - the Contract for which the depth is being requested
-	 * @param numRows
-	 *            - the number of rows on each side of the order book
-	 * @param mktDepthOptions
-	 * 
-	 * @see cancelMktDepth, EWrapper::updateMktDepth, EWrapper::updateMktDepthL2
-	 */
-	void reqMarketDepth(int tickerId, Contract contract, int numRows, List<TagValue> mktDepthOptions) {
-
-	}
-
-	/**
 	 * Ka Wing: Also place the mapping of request id to contract
 	 * 
 	 * Requests real time market data. Returns market data for an instrument
@@ -472,267 +451,6 @@ public class Requester {
 	}
 
 	/**
-	 * @return data histogram of specified contract .
-	 * 
-	 * @param tickerId
-	 *            - an identifier for the request
-	 * @param contract
-	 *            - Contract object for which histogram is being requested
-	 * @param useRTH
-	 *            - use regular trading hours only, 1 for yes or 0 for no
-	 * @param period
-	 *            - period of which data is being requested, e.g. "3 days"
-	 * @see histogramData
-	 */
-	void reqHistogramData(int tickerId, Contract contract, Boolean useRTH, String period) {
-
-	}
-
-	/**
-	 * Requests venues for which market data is returned to updateMktDepthL2
-	 * (those with market makers)
-	 * 
-	 * @see EWrapper::mktDepthExchanges
-	 */
-	void reqMktDepthExchanges() {
-
-	}
-
-	/**
-	 * Requests news article body given articleId.
-	 * 
-	 * @param requestId
-	 *            - id of the request
-	 * @param providerCode
-	 *            - short code indicating news provider, e.g. FLY
-	 * @param articleId
-	 *            - id of the specific article
-	 * @param newsArticleOptions
-	 *            - reserved for internal use. Should be defined as null.
-	 * @see EWrapper::newsArticle,
-	 */
-	void reqNewsArticle(int requestId, String providerCode, String articleId, List<TagValue> newsArticleOptions) {
-
-	}
-
-	/**
-	 * Subscribes to IB's News Bulletins.
-	 * 
-	 * @param allMessages
-	 *            - if set to true, will return all the existing bulletins for
-	 *            the current day, set to false to receive only the new
-	 *            bulletins.
-	 * @see cancelNewsBulletin, EWrapper::updateNewsBulletin
-	 */
-	void reqNewsBulletins(boolean allMessages) {
-
-	}
-
-	/**
-	 * Requests news providers which the user has subscribed to.
-	 * 
-	 * @see EWrapper::newsProviders
-	 */
-	void reqNewsProviders() {
-
-	}
-
-	/**
-	 * Requests all open orders places by this specific API client (identified
-	 * by the API client id). For client ID 0, this will bind previous manual
-	 * TWS orders.
-	 * 
-	 * @see reqAllOpenOrders, reqAutoOpenOrders, placeOrder, cancelOrder,
-	 *      reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus,
-	 *      EWrapper::openOrderEnd
-	 */
-	void reqOpenOrders() {
-
-	}
-
-	/**
-	 * Creates subscription for real time daily PnL and unrealized PnL updates.
-	 * 
-	 * @param reqId
-	 *            - the request's identifier
-	 * @param account
-	 *            - account for which to receive PnL updates
-	 * @param modelCode
-	 *            - specify to request PnL updates for a specific model
-	 */
-	void reqPnL(int reqId, String account, String modelCode) {
-
-	}
-
-	/**
-	 * Requests real time updates for daily PnL of individual positions.
-	 * 
-	 * @param reqId
-	 *            - the request's identifier
-	 * @param account
-	 *            - account in which position exists
-	 * @param modelCode
-	 *            - model in which position exists
-	 * @param conId
-	 *            - contract ID (conId) of contract to receive daily PnL updates
-	 *            for. Note: does not return message if invalid conId is entered
-	 */
-	void reqPnLSingle(int reqId, String account, String modelCode, int conId) {
-
-	}
-
-	/**
-	 * Subscribes to position updates for all accessible accounts. All positions
-	 * sent initially, and then only updates as positions change.
-	 * 
-	 * @see cancelPositions, EWrapper::position, EWrapper::positionEnd
-	 */
-	void reqPositions() {
-
-	}
-
-	/**
-	 * Requests position subscription for account and/or model Initially all
-	 * positions are returned, and then updates are returned for any position
-	 * changes in real time.
-	 * 
-	 * @param requestId
-	 *            - Request's identifier
-	 * @param account
-	 *            - If an account Id is provided, only the account's positions
-	 *            belonging to the specified model will be delivered
-	 * @param modelCode
-	 *            - The code of the model's positions we are interested in.
-	 * @see cancelPositionsMulti, EWrapper::positionMulti,
-	 *      EWrapper::positionMultiEnd
-	 */
-	void reqPositionsMulti(int requestId, String account, String modelCode) {
-
-	}
-
-	/**
-	 * Requests real time bars Currently, only 5 seconds bars are provided. This
-	 * request is subject to the same pacing as any historical data request: no
-	 * more than 60 API queries in more than 600 seconds. Real time bars
-	 * subscriptions are also included in the calculation of the number of Level
-	 * 1 market data subscriptions allowed in an account.
-	 * 
-	 * @param tickerId
-	 *            - the request's unique identifier.
-	 * @param contract
-	 *            - the Contract for which the depth is being requested
-	 * @param barSize
-	 *            - currently being ignored
-	 * @param whatToShow
-	 *            - the nature of the data being retrieved: TRADES, MIDPOINT,
-	 *            BID, ASK
-	 * @param useRTH
-	 *            set to 0 to obtain the data which was also generated ourside
-	 *            of the Regular Trading Hours, set to 1 to obtain only the RTH
-	 *            data
-	 * @see cancelRealTimeBars, EWrapper::realtimeBar
-	 */
-	void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH,
-			List<TagValue> realTimeBarsOptions) {
-
-	}
-
-	/**
-	 * Requests an XML list of scanner parameters valid in TWS. Not all
-	 * parameters are valid from API scanner.
-	 * 
-	 * @see reqScannerSubscription
-	 */
-	void reqScannerParameters() {
-
-	}
-
-	/**
-	 * Starts a subscription to market scan results based on the provided
-	 * parameters.
-	 * 
-	 * @param reqId
-	 *            - the request's identifier
-	 * @param subscription
-	 *            - summary of the scanner subscription including its filters.
-	 * @see reqScannerParameters, ScannerSubscription, EWrapper::scannerData
-	 */
-	void reqScannerSubscription(int reqId, ScannerSubscription subscription,
-			List<TagValue> scannerSubscriptionOptions) {
-
-	}
-
-	/**
-	 * Requests security definition option parameters for viewing a contract's
-	 * option chain.
-	 * 
-	 * @param reqId
-	 *            - the ID chosen for the request
-	 * @param underlyingSymbol
-	 *            - the underlying Symbol
-	 * @param futFopExchange
-	 *            - The exchange on which the returned options are trading. Can
-	 *            be set to the empty string "" for all exchanges.
-	 * @param underlyingSecType
-	 *            - The type of the underlying security, i.e. STK
-	 * @param underlyingConId
-	 *            - the contract ID of the underlying security
-	 * @see EWrapper::securityDefinitionOptionParameter
-	 */
-	void reqSecDefOptParams(int reqId, String underlyingSymbol, String futFopExchange, String underlyingSecType,
-			int underlyingConId) {
-
-	}
-
-	/**
-	 * Returns the mapping of single letter codes to exchange names given the
-	 * mapping identifier.
-	 * 
-	 * @param reqId
-	 *            - id of the request
-	 * @param bboExchange-
-	 *            mapping identifier received from EWrapper.tickReqParams
-	 * @see EWrapper::smartComponents
-	 */
-	void reqSmartComponents(int reqId, String bboExchange) {
-
-	}
-
-	/**
-	 * Requests pre-defined Soft Dollar Tiers. This is only supported for
-	 * registered professional advisors and hedge and mutual funds who have
-	 * configured Soft Dollar Tiers in Account Management. Refer to:
-	 * https://www.interactivebrokers.com/en/software/am/am/manageaccount/
-	 * requestsoftdollars.htm?Highlight=soft%20dollar%20tier.
-	 * 
-	 * @see EWrapper::softDollarTiers
-	 */
-	void reqSoftDollarTiers(int reqId) {
-
-	}
-
-	/**
-	 * Requests tick-by-tick data. .
-	 * 
-	 * @param reqId
-	 *            - unique identifier of the request.
-	 * @param contract
-	 *            - the contract for which tick-by-tick data is requested.
-	 * @param tickType
-	 *            - tick-by-tick data type: "Last", "AllLast", "BidAsk" or
-	 *            "MidPoint".
-	 * @param numberOfTicks
-	 *            - number of ticks.
-	 * @param ignoreSize
-	 *            - ignore size flag.
-	 * @see EWrapper::tickByTickAllLast, EWrapper::tickByTickBidAsk,
-	 *      EWrapper::tickByTickMidPoint, Contract
-	 */
-	void reqTickByTickData(int requestId, Contract contract, String tickType, int numberOfTicks, boolean ignoreSize) {
-
-	}
-
-	/**
 	 * Subscribes to an specific account's information and portfolio Through
 	 * this method, a single account's subscription can be started/stopped. As a
 	 * result from the subscription, the account's information, portfolio and
@@ -892,6 +610,265 @@ public class Requester {
 	 */
 	public void reqGlobalCancel() {
 		clientSocket.reqGlobalCancel();
+	}
+
+	/**
+	 * Requests venues for which market data is returned to updateMktDepthL2
+	 * (those with market makers)
+	 * 
+	 * @see EWrapper::mktDepthExchanges
+	 */
+
+	void reqMktDepthExchanges() {
+
+	}
+
+	/**
+	 * Requests news article body given articleId.
+	 * 
+	 * @param requestId
+	 *            - id of the request
+	 * @param providerCode
+	 *            - short code indicating news provider, e.g. FLY
+	 * @param articleId
+	 *            - id of the specific article
+	 * @param newsArticleOptions
+	 *            - reserved for internal use. Should be defined as null.
+	 * @see EWrapper::newsArticle,
+	 */
+
+	void reqNewsArticle(int requestId, String providerCode, String articleId, List<TagValue> newsArticleOptions) {
+
+	}
+
+	/**
+	 * Subscribes to IB's News Bulletins.
+	 * 
+	 * @param allMessages
+	 *            - if set to true, will return all the existing bulletins for
+	 *            the current day, set to false to receive only the new
+	 *            bulletins.
+	 * @see cancelNewsBulletin, EWrapper::updateNewsBulletin
+	 */
+
+	void reqNewsBulletins(boolean allMessages) {
+
+	}
+
+	/**
+	 * Requests news providers which the user has subscribed to.
+	 * 
+	 * @see EWrapper::newsProviders
+	 */
+
+	void reqNewsProviders() {
+
+	}
+
+	/**
+	 * Requests all open orders places by this specific API client (identified
+	 * by the API client id). For client ID 0, this will bind previous manual
+	 * TWS orders.
+	 * 
+	 * @see reqAllOpenOrders, reqAutoOpenOrders, placeOrder, cancelOrder,
+	 *      reqGlobalCancel, EWrapper::openOrder, EWrapper::orderStatus,
+	 *      EWrapper::openOrderEnd
+	 */
+
+	void reqOpenOrders() {
+
+	}
+
+	/**
+	 * Creates subscription for real time daily PnL and unrealized PnL updates.
+	 * 
+	 * @param reqId
+	 *            - the request's identifier
+	 * @param account
+	 *            - account for which to receive PnL updates
+	 * @param modelCode
+	 *            - specify to request PnL updates for a specific model
+	 */
+
+	void reqPnL(int reqId, String account, String modelCode) {
+
+	}
+
+	/**
+	 * Requests real time updates for daily PnL of individual positions.
+	 * 
+	 * @param reqId
+	 *            - the request's identifier
+	 * @param account
+	 *            - account in which position exists
+	 * @param modelCode
+	 *            - model in which position exists
+	 * @param conId
+	 *            - contract ID (conId) of contract to receive daily PnL updates
+	 *            for. Note: does not return message if invalid conId is entered
+	 */
+
+	void reqPnLSingle(int reqId, String account, String modelCode, int conId) {
+
+	}
+
+	/**
+	 * Subscribes to position updates for all accessible accounts. All positions
+	 * sent initially, and then only updates as positions change.
+	 * 
+	 * @see cancelPositions, EWrapper::position, EWrapper::positionEnd
+	 */
+
+	void reqPositions() {
+
+	}
+
+	/**
+	 * Requests position subscription for account and/or model Initially all
+	 * positions are returned, and then updates are returned for any position
+	 * changes in real time.
+	 * 
+	 * @param requestId
+	 *            - Request's identifier
+	 * @param account
+	 *            - If an account Id is provided, only the account's positions
+	 *            belonging to the specified model will be delivered
+	 * @param modelCode
+	 *            - The code of the model's positions we are interested in.
+	 * @see cancelPositionsMulti, EWrapper::positionMulti,
+	 *      EWrapper::positionMultiEnd
+	 */
+
+	void reqPositionsMulti(int requestId, String account, String modelCode) {
+
+	}
+
+	/**
+	 * Requests real time bars Currently, only 5 seconds bars are provided. This
+	 * request is subject to the same pacing as any historical data request: no
+	 * more than 60 API queries in more than 600 seconds. Real time bars
+	 * subscriptions are also included in the calculation of the number of Level
+	 * 1 market data subscriptions allowed in an account.
+	 * 
+	 * @param tickerId
+	 *            - the request's unique identifier.
+	 * @param contract
+	 *            - the Contract for which the depth is being requested
+	 * @param barSize
+	 *            - currently being ignored
+	 * @param whatToShow
+	 *            - the nature of the data being retrieved: TRADES, MIDPOINT,
+	 *            BID, ASK
+	 * @param useRTH
+	 *            set to 0 to obtain the data which was also generated ourside
+	 *            of the Regular Trading Hours, set to 1 to obtain only the RTH
+	 *            data
+	 * @see cancelRealTimeBars, EWrapper::realtimeBar
+	 */
+
+	void reqRealTimeBars(int tickerId, Contract contract, int barSize, String whatToShow, boolean useRTH,
+			List<TagValue> realTimeBarsOptions) {
+
+	}
+
+	/**
+	 * Requests an XML list of scanner parameters valid in TWS. Not all
+	 * parameters are valid from API scanner.
+	 * 
+	 * @see reqScannerSubscription
+	 */
+
+	void reqScannerParameters() {
+
+	}
+
+	/**
+	 * Starts a subscription to market scan results based on the provided
+	 * parameters.
+	 * 
+	 * @param reqId
+	 *            - the request's identifier
+	 * @param subscription
+	 *            - summary of the scanner subscription including its filters.
+	 * @see reqScannerParameters, ScannerSubscription, EWrapper::scannerData
+	 */
+
+	void reqScannerSubscription(int reqId, ScannerSubscription subscription,
+			List<TagValue> scannerSubscriptionOptions) {
+
+	}
+
+	/**
+	 * Requests security definition option parameters for viewing a contract's
+	 * option chain.
+	 * 
+	 * @param reqId
+	 *            - the ID chosen for the request
+	 * @param underlyingSymbol
+	 *            - the underlying Symbol
+	 * @param futFopExchange
+	 *            - The exchange on which the returned options are trading. Can
+	 *            be set to the empty string "" for all exchanges.
+	 * @param underlyingSecType
+	 *            - The type of the underlying security, i.e. STK
+	 * @param underlyingConId
+	 *            - the contract ID of the underlying security
+	 * @see EWrapper::securityDefinitionOptionParameter
+	 */
+
+	void reqSecDefOptParams(int reqId, String underlyingSymbol, String futFopExchange, String underlyingSecType,
+			int underlyingConId) {
+
+	}
+
+	/**
+	 * Returns the mapping of single letter codes to exchange names given the
+	 * mapping identifier.
+	 * 
+	 * @param reqId
+	 *            - id of the request
+	 * @param bboExchange-
+	 *            mapping identifier received from EWrapper.tickReqParams
+	 * @see EWrapper::smartComponents
+	 */
+
+	void reqSmartComponents(int reqId, String bboExchange) {
+
+	}
+
+	/**
+	 * Requests pre-defined Soft Dollar Tiers. This is only supported for
+	 * registered professional advisors and hedge and mutual funds who have
+	 * configured Soft Dollar Tiers in Account Management. Refer to:
+	 * https://www.interactivebrokers.com/en/software/am/am/manageaccount/requestsoftdollars.htm?Highlight=soft%20dollar%20tier.
+	 * 
+	 * @see EWrapper::softDollarTiers
+	 */
+
+	void reqSoftDollarTiers(int reqId) {
+
+	}
+
+	/**
+	 * Requests tick-by-tick data. .
+	 * 
+	 * @param reqId
+	 *            - unique identifier of the request.
+	 * @param contract
+	 *            - the contract for which tick-by-tick data is requested.
+	 * @param tickType
+	 *            - tick-by-tick data type: "Last", "AllLast", "BidAsk" or
+	 *            "MidPoint".
+	 * @param numberOfTicks
+	 *            - number of ticks.
+	 * @param ignoreSize
+	 *            - ignore size flag.
+	 * @see EWrapper::tickByTickAllLast, EWrapper::tickByTickBidAsk,
+	 *      EWrapper::tickByTickMidPoint, Contract
+	 */
+
+	void reqTickByTickData(int requestId, Contract contract, String tickType, int numberOfTicks, boolean ignoreSize) {
+
 	}
 
 	public void placeOrder(Contract contract, Order order) {
